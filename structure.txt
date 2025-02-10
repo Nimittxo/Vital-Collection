@@ -1,0 +1,226 @@
+�   pubspec.lock
+�   pubspec.yaml
+�   README.md
+�   SECURITY.md
+�   structure.txt
++---assets
+�   +---fonts
+�   �       Avenir-Font.zip
+�   �       AvenirLTStd-Black.otf
+�   �       AvenirLTStd-Book.otf
+�   �       AvenirLTStd-Roman.otf
+�   �       IndieFlower-Regular.ttf
+�   �       
+�   +---icons
+�   �       facebook.png
+�   �       google.png
+�   �       
+�   +---illustrations
+�   �       Business competition-rafiki.png
+�   �       Coaches-amico.png
+�   �       Coaches-amico_red.png
+�   �       Fitness tracker-amico.png
+�   �       Fitness tracker-amico_red.png
+�   �       Fitness tracker-pana.png
+�   �       Fitness tracker-pana.svg
+�   �       Personal goals-amico.png
+�   �       Timeline-amico.png
+�   �       Timeline-amico_red.png
+�   �       
+�   +---images
+�   �       abs1.jpg
+�   �       Air_Bike0.jpg
+�   �       Air_Bike1.jpg
+�   �       All_Fours_Quad_Stretch0.jpg
+�   �       All_Fours_Quad_Stretch1.jpg
+�   �       app_logo.png
+�   �       back1.jpg
+�   �       ball1.jpg
+�   �       Bent-Knee_Hip_Raise0.jpg
+�   �       Bent-Knee_Hip_Raise1.jpg
+�   �       Bodyweight_Squat0.jpg
+�   �       Bodyweight_Squat1.jpg
+�   �       Bodyweight_Walking_Lunge0.jpg
+�   �       Bodyweight_Walking_Lunge1.jpg
+�   �       Bottoms_Up0.jpg
+�   �       Bottoms_Up1.jpg
+�   �       Box_Jump_(Multiple_Response)0.jpg
+�   �       Box_Jump_(Multiple_Response)1.jpg
+�   �       Calf_Raise_On_A_Dumbbell0.jpg
+�   �       Calf_Raise_On_A_Dumbbell1.jpg
+�   �       chest1.jpg
+�   �       Clock_Push-Up0.jpg
+       
+�   +---json
+�   �       fdaSample.json
+�   �       offSampe1.json
+�   �       offSample.json
+�   �       sampleBody.json
+�   �       sampleRecipes.json
+�   �       workouts.json
+�   �       
+�   +---svgs
+�           Login.svg
+�           
+
++---lib
+�   �   main.dart
+�   �   
+�   +---data
+�   �   +---models
+�   �   �       exercise_model.dart
+�   �   �       food_model.dart
+�   �   �       meal_model.dart
+�   �   �       meal_plan_model.dart
+�   �   �       onboarding_model.dart
+�   �   �       post_model.dart
+�   �   �       product_model.dart
+�   �   �       recipe_model.dart
+�   �   �       user_model.dart
+�   �   �       workout_model.dart
+�   �   �       
+�   �   +---repositories
+�   �           api_keys.dart
+�   �           fdc_api.dart
+�   �           firebase_auth.dart
+�   �           firestore.dart
+�   �           off_api.dart
+�   �           spoonacular_api.dart
+�   �           storage.dart
+�   �           user_repository.dart
+�   �           
+�   +---shared
+�   �   +---constants
+�   �   �       assets_path.dart
+�   �   �       consts_variables.dart
+�   �   �       
+�   �   +---services
+�   �   �       authentication_service.dart
+�   �   �       pedometer_service.dart
+�   �   �       user_provider.dart
+�   �   �       workouts_json.dart
+�   �   �       
+�   �   +---styles
+�   �   �       colors.dart
+�   �   �       themes.dart
+�   �   �       
+�   �   +---utilities
+�   �           utils.dart
+�   �           validators.dart
+�   �           
+�   +---ui
+�       +---screens
+�       �   �   notifications_screen.dart
+�       �   �   
+�       �   +---auth
+�       �   �   �   forgot_password_screen.dart
+�       �   �   �   loading_screen.dart
+�       �   �   �   login_screen.dart
+�       �   �   �   registration_screen.dart
+�       �   �   �   welcome_screen.dart
+�       �   �   �   
+�       �   �   +---about
+�       �   �   �   �   about_contents.dart
+�       �   �   �   �   about_screen.dart
+�       �   �   �   �   
+�       �   �   �   +---widgets
+�       �   �   �           gender_picker_widget.dart
+�       �   �   �           
+�       �   �   +---onboarding
+�       �   �           onboarding_contents.dart
+�       �   �           onboarding_screen.dart
+�       �   �           size_config.dart
+�       �   �           
+�       �   +---diary
+�       �   �   �   diary_screen.dart
+�       �   �   �   
+�       �   �   +---heart
+�       �   �   �       heart_stats_screen.dart
+�       �   �   �       meassure_bpm_screen.dart
+�       �   �   �       
+�       �   �   +---nutrition
+�       �   �   �       calories_stats_screen.dart
+�       �   �   �       food_details_screen.dart
+�       �   �   �       quick_add_screen.dart
+�       �   �   �       upc_details_screen.dart
+�       �   �   �       
+�       �   �   +---sleep
+�       �   �   �       record_sleep_screen.dart
+�       �   �   �       sleep_stats_screen.dart
+�       �   �   �       
+�       �   �   +---water
+�       �   �   �       add_water_screen.dart
+�       �   �   �       water_stats_screen.dart
+�       �   �   �       
+�       �   �   +---weight
+�       �   �   �       add_weight_screen.dart
+�       �   �   �       weight_details_screen.dart
+�       �   �   �       
+�       �   �   +---widgets
+�       �   �           goal_card_widget.dart
+�       �   �           meal_card_widget.dart
+�       �   �           
+�       �   +---home
+�       �   �   �   add_post_screen.dart
+�       �   �   �   comments_screen.dart
+�       �   �   �   home_screen.dart
+�       �   �   �   
+�       �   �   +---widgets
+�       �   �           comment_card.dart
+�       �   �           like_animation.dart
+�       �   �           postcard_widget.dart
+�       �   �           
+�       �   +---messages
+�       �   �       conversation_screen.dart
+�       �   �       messages_screen.dart
+�       �   �       
+�       �   +---plans
+�       �   �   �   plans_screen.dart
+�       �   �   �   workouts_details.dart
+�       �   �   �   
+�       �   �   +---widgets
+�       �   �           exercise_card_widget.dart
+�       �   �           exercise_details.dart
+�       �   �           workouts_card_widget.dart
+�       �   �           
+�       �   +---profile
+�       �   �       edit_profile_screen.dart
+�       �   �       profile_screen.dart
+�       �   �       
+�       �   +---recipes
+�       �   �   �   recipes_screen.dart
+�       �   �   �   recipe_details_screen.dart
+�       �   �   �   
+�       �   �   +---widgets
+�       �   �           recipe_card_widget.dart
+�       �   �           
+�       �   +---settings
+�       �   �       settings_screen.dart
+�       �   �       
+�       �   +---together
+�       �           meditation_screen.dart
+�       �           together_screen.dart
+�       �           
+�       +---widgets
+�               appbar_widget.dart
+�               button_widget.dart
+�               custom_dots.dart
+�               datetime_picker_widget.dart
+�               drawer_widget.dart
+�               indicator_widget.dart
+�               mycustompainter.dart
+�               navigation_widget.dart
+�               search_field_widget.dart
+�               snackbar_widget.dart
+�               textfield_widget.dart
+�               
++---screenshots
+�       dark.png
+�       group.png
+�       light.png
+�       ss1.png
+�       ss2.png
+�       ss3.png
+�       
++---test
+�       widget_test.dart

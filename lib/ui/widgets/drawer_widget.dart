@@ -105,7 +105,7 @@ class _NavDrawerState extends State<NavDrawer> {
             builder: (context, value, child) {
               return CupertinoSwitch(
                   value: value.darkTheme,
-                  activeColor: Colors.red,
+                  activeTrackColor: Colors.red,
                   onChanged: (newValue) {
                     value.toggleTheme();
                   });

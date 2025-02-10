@@ -115,8 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 80.w,
                         title: 'Login',
                         func: () async {
-                          bool isConnected =
-                              await InternetConnectionChecker().hasConnection;
+                          bool isConnected = await InternetConnectionChecker().hasConnection;
                           if (isConnected) {
                             if (!mounted) {
                               return;

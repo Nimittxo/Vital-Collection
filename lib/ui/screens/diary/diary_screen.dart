@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_tracker/shared/styles/colors.dart';
 import 'package:health_tracker/ui/screens/diary/heart/meassure_bpm_screen.dart';
 import 'package:health_tracker/ui/screens/diary/heart/heart_stats_screen.dart';
-import 'package:health_tracker/ui/screens/diary/nutrition/add_meal_screen.dart';
+//import 'package:health_tracker/ui/screens/diary/nutrition/add_meal_screen.dart';
 import 'package:health_tracker/ui/screens/diary/nutrition/calories_stats_screen.dart';
 import 'package:health_tracker/ui/screens/diary/sleep/record_sleep_screen.dart';
 import 'package:health_tracker/ui/screens/diary/sleep/sleep_stats_screen.dart';
@@ -1276,47 +1276,6 @@ class _DiaryScreenState extends State<DiaryScreen> {
                         return SimpleDialog(
                           title: const Text('Meals'),
                           children: [
-                            SimpleDialogOption(
-                                child: const Text('Breakfast'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddMealScreen(
-                                                title: 'Breakfast',
-                                              )));
-                                }),
-                            SimpleDialogOption(
-                                child: const Text('Lunch'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddMealScreen(
-                                                  title: 'Lunch')));
-                                }),
-                            SimpleDialogOption(
-                                child: const Text('Dinner'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddMealScreen(
-                                                  title: 'Dinner')));
-                                }),
-                            SimpleDialogOption(
-                                child: const Text('Snacks'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddMealScreen(
-                                                  title: 'Snacks')));
-                                }),
                           ],
                         );
                       });

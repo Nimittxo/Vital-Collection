@@ -6,8 +6,9 @@
         "firebase.json": ".firebaserc, firestore-debug.log, firestore.indexes.json, firestore.rules, storage.rules"
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll": true
+        "source.fixAll": "explicit"
     },
     "cmake.sourceDirectory": "${workspaceFolder}/windows",
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

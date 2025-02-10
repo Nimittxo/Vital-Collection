@@ -29,7 +29,7 @@ class MyThemes {
     dialogBackgroundColor: const Color.fromARGB(255, 15, 15, 15),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all(Colors.white),
+      foregroundColor: WidgetStateProperty.all(Colors.white),
     )),
   );
 
@@ -51,7 +51,7 @@ class MyThemes {
     cardColor: Colors.grey.shade200,
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all(Colors.black),
+      foregroundColor: WidgetStateProperty.all(Colors.black),
     )),
   );
 }
