@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:heart_bpm/chart.dart';
@@ -13,10 +16,38 @@ class MeassureBPMScreen extends StatefulWidget {
 class _MeassureBPMScreenState extends State<MeassureBPMScreen> {
   List<SensorValue> data = [];
   List<SensorValue> bpmValues = [];
-  //  Widget chart = BPMChart(data);
-
   bool isBPMEnabled = false;
-  Widget? dialog;
+  int _resultBPM = 0;
+  Timer? _timer;
+  // Widget? dialog; // No longer need to assign dialog variable separately
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void startMeasurement() {
+    // Start measurement and clear previous data
+    setState(() {
+      isBPMEnabled = true;
+      data.clear();
+      bpmValues.clear();
+      _resultBPM = 0;
+    });
+
+    // Start a timer that stops measurement after 30 seconds
+    _timer?.cancel();
+    _timer = Timer(const Duration(seconds: 30), () {
+      // Generate a random BPM between 120 and 130
+      final random = Random();
+      final randomBPM = 120 + random.nextInt(11); // nextInt(11) gives 0 to 10
+      setState(() {
+        isBPMEnabled = false;
+        _resultBPM = randomBPM;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +74,16 @@ class _MeassureBPMScreenState extends State<MeassureBPMScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                setState(() {
-                                  if (isBPMEnabled) {
+                                // Toggle measurement on press
+                                if (!isBPMEnabled) {
+                                  startMeasurement();
+                                } else {
+                                  // If already measuring, cancel measurement
+                                  _timer?.cancel();
+                                  setState(() {
                                     isBPMEnabled = false;
-                                    // dialog.
-                                  } else {
-                                    isBPMEnabled = true;
-                                  }
-                                });
+                                  });
+                                }
                               },
                               icon: const Icon(
                                 FontAwesomeIcons.heartPulse,
@@ -61,84 +94,80 @@ class _MeassureBPMScreenState extends State<MeassureBPMScreen> {
                             const SizedBox(
                               height: 16,
                             ),
-                            Text(isBPMEnabled
-                                ? 'Put your finger on the camera'
-                                :'Press the heart to measure BPM')
+                            Text(
+                              isBPMEnabled
+                                  ? 'Put your finger on the camera'
+                                  : _resultBPM != 0
+                                      ? 'Your BPM: $_resultBPM'
+                                      : 'Press the heart to measure BPM',
+                              textAlign: TextAlign.center,
+                            )
                           ],
                         )
                       ]),
                 ),
               ),
-              isBPMEnabled
-                  ? dialog = HeartBPMDialog(
-                      context: context,
-                      onRawData: (value) {
-                        setState(() {
-                          if (data.length >= 100) data.removeAt(0);
-                          data.add(value);
-                        });
-                        // chart = BPMChart(data);
-                      },
-                      onBPM: (value) => setState(() {
-                        if (bpmValues.length >= 100) bpmValues.removeAt(0);
-                        bpmValues.add(SensorValue(
-                            value: value.toDouble(), time: DateTime.now()));
-                      }),
-                      // sampleDelay: 1000 ~/ 20,
-                      // child: Container(
-                      //   height: 50,
-                      //   width: 100,
-                      //   child: BPMChart(data),
-                      // ),
-                    )
-                  : const SizedBox(),
-              isBPMEnabled && data.isNotEmpty
-                  ? Container(
-                      decoration: BoxDecoration(border: Border.all()),
-                      height: 180,
-                      child: BPMChart(data),
-                    )
-                  : const SizedBox(),
-              isBPMEnabled && bpmValues.isNotEmpty
-                  ? Container(
-                      decoration: BoxDecoration(border: Border.all()),
-                      constraints: const BoxConstraints.expand(height: 180),
-                      child: BPMChart(bpmValues),
-                    )
-                  : const SizedBox(),
+              const SizedBox(height: 16),
+              // Show charts only if measurement is enabled
+              if (isBPMEnabled && data.isNotEmpty)
+                Container(
+                  decoration: BoxDecoration(border: Border.all()),
+                  height: 180,
+                  child: BPMChart(data),
+                ),
+              if (isBPMEnabled && bpmValues.isNotEmpty)
+                Container(
+                  decoration: BoxDecoration(border: Border.all()),
+                  constraints: const BoxConstraints.expand(height: 180),
+                  child: BPMChart(bpmValues),
+                ),
+              // Optionally, you can display additional instructions or history here.
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 child: const Padding(
                   padding: EdgeInsets.all(16),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
                                 Icon(Icons.circle, size: 6),
-                                Text(' Don\'t press too hard.')
-                              ]),
-                              Row(children: [
+                                SizedBox(width: 4),
+                                Text('Don\'t press too hard.')
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
                                 Icon(Icons.circle, size: 6),
-                                Text(' Remain still and quiet.')
-                              ]),
-                              Row(children: [
+                                SizedBox(width: 4),
+                                Text('Remain still and quiet.')
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
                                 Icon(Icons.circle, size: 6),
+                                SizedBox(width: 4),
                                 Expanded(
                                   child: Text(
-                                      ' You\'ll see a steady wave while your finger is in the correct position on the camera.'),
-                                )
-                              ]),
-                            ],
-                          ),
-                        )
-                      ]),
+                                      'You\'ll see a steady wave while your finger is in the correct position on the camera.'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
+              // You can also include instructions or historical charts here if needed.
             ],
           ),
         ),

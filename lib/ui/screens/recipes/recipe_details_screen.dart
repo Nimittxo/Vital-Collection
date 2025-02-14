@@ -129,7 +129,7 @@ class RecipeDetails extends StatelessWidget {
                         width: 20,
                       ),
                       Text(recipeModel.servings.toString() +
-                          (recipeModel.servings > 1 ? ' Servings' : 'Serving')),
+                          (recipeModel.servings > 1 ? ' Number' : 'Number')),
                     ],
                   ),
                   const SizedBox(
@@ -162,13 +162,13 @@ class RecipeDetails extends StatelessWidget {
                           ),
                           tabs: [
                             Tab(
-                              text: "Ingredients".toUpperCase(),
+                              text: "Earning".toUpperCase(),
                             ),
                             Tab(
-                              text: "Preparation".toUpperCase(),
+                              text: "Earned".toUpperCase(),
                             ),
                             Tab(
-                              text: "Reviews".toUpperCase(),
+                              text: "Comments".toUpperCase(),
                             ),
                           ],
                         ),
@@ -184,7 +184,7 @@ class RecipeDetails extends StatelessWidget {
                             Preparation(
                               recipeModel: recipeModel,
                             ),
-                            const Text('Reviews'),
+                            const Text('Comments'),
                           ],
                         )),
                       ],

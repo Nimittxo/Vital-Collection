@@ -15,12 +15,12 @@ class RecipesScreen extends StatefulWidget {
 
 class _RecipesScreenState extends State<RecipesScreen> {
   Future<List<Recipe>> recipeList = SpoonacularService.instance
-      .getRandomRecipes(tags: "Pescetarian,keto,Whole30", number: 50);
+      .getRandomRecipes(tags: "Yearly,Weekly,Daily", number: 50);
   List<Future<List<Recipe>>> recipesByCategory = [
-    SpoonacularService.instance.getRandomRecipes(number: 20, tags: 'keto'),
+    SpoonacularService.instance.getRandomRecipes(number: 20, tags: 'Daily'),
     SpoonacularService.instance
-        .getRandomRecipes(number: 20, tags: 'pescetarian'),
-    SpoonacularService.instance.getRandomRecipes(number: 20, tags: 'vegetarian')
+        .getRandomRecipes(number: 20, tags: 'Weekly'),
+    SpoonacularService.instance.getRandomRecipes(number: 20, tags: 'Yearly')
   ];
 
   @override
@@ -35,13 +35,13 @@ class _RecipesScreenState extends State<RecipesScreen> {
                   isScrollable: true,
                   tabs: [
                     Tab(
-                      text: 'Categories'.toUpperCase(),
+                      text: 'Coins'.toUpperCase(),
                     ),
                     Tab(
-                      text: 'Favourites'.toUpperCase(),
+                      text: 'Badges'.toUpperCase(),
                     ),
                     Tab(
-                      text: 'New Recipes'.toUpperCase(),
+                      text: 'Leaderboard'.toUpperCase(),
                     ),
                   ],
                   labelColor:
@@ -61,7 +61,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TabBarView(children: [
                       RecipeCategories(recipes: recipesByCategory),
-                      const Center(child: Text("Favourites")),
+                      const Center(child: Text("No Badges Yet!")),
                       NewRecipe(
                         newRecipesList: recipeList,
                       ),
@@ -97,31 +97,31 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
             const SizedBox(
               height: 4,
             ),
-            HorizontalRecipes(category: "keto", recipesList: widget.recipes[0]),
+            HorizontalRecipes(category: "Daily", recipesList: widget.recipes[0]),
             const SizedBox(
               height: 8,
             ),
             const Text(
-              'Vegetarian',
+              'Weekly',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 4,
             ),
             HorizontalRecipes(
-                category: "vegetarian", recipesList: widget.recipes[1]),
+                category: "Yearly", recipesList: widget.recipes[1]),
             const SizedBox(
               height: 8,
             ),
             const Text(
-              'Pescetarian',
+              'Weekly',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 4,
             ),
             HorizontalRecipes(
-                category: "pescetarian", recipesList: widget.recipes[2]),
+                category: "Daily", recipesList: widget.recipes[2]),
           ],
         ),
       ),

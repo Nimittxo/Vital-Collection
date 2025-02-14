@@ -24,6 +24,9 @@ import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart'; 
 
 class DiaryScreen extends StatefulWidget {
   const DiaryScreen({Key? key}) : super(key: key);
@@ -36,6 +39,17 @@ class _DiaryScreenState extends State<DiaryScreen> {
   // DateTime _selectedDate = DateTime.now();
   // DateTime _focusedDate = DateTime.now();
   // CalendarFormat _calendarFormat = CalendarFormat.week;
+  Future<Map<String, dynamic>> _loadVitals() async {
+    // Using path_provider to get the documents directory
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/vital.json');
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      return jsonDecode(contents);
+    } else {
+      return {};
+    }
+  }
   DateTime date = DateTime.now();
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
@@ -96,8 +110,27 @@ class _DiaryScreenState extends State<DiaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // drawer: const NavDrawer(),
-        // appBar: CustomAppBar(title: "Diary"),
+      appBar: AppBar(title: const Text('Diary')),
+      body: FutureBuilder<Map<String, dynamic>>(
+        future: _loadVitals(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No vitals data available.'));
+          } else {
+            // Extract your vitals from the JSON data.
+            final data = snapshot.data!;
+              // For example, assume the JSON has keys like 'steps', 'heartRate', 'temperature'
+            final temperature = data['Body Temperature'] ?? 0.0;
+            final heartRate = data['Pulse Rate'] ?? 0;
+            final respRate = data['Respiratory Rate'] ?? 0;
+            final bloodOxygen = data['Blood Oxygen Level'] ?? 0;
+            final bloodGlucose = data['Blood Glucose Level'] ?? 0.0;
+            final systolic = data['Systolic'] ?? 0;
+            final diastolic = data['Diastolic'] ?? 0;
         body: Stack(
           children: [
             Align(
@@ -106,6 +139,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                 clipper: MyClipper(),
                 child: Container(
                   height: 450,
+
                   decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? darkBlue
@@ -296,26 +330,26 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   children: [
                                     Column(
                                       children: [
-                                        const Icon(Icons.location_on,
+                                        const Icon(Icons.thermostat_auto_rounded,
                                             color: Color.fromARGB(
                                                 255, 255, 150, 128)),
                                         const SizedBox(
                                           height: 8,
                                         ),
-                                        const Text('Distance'),
+                                        const Text('Body Temp.'),
                                         const SizedBox(
                                           height: 4,
                                         ),
                                         Row(
                                           children: [
                                             Text(
-                                              (_todaySteps * 0.0007)
+                                              (38 * 1)
                                                   .toStringAsFixed(2),
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             const Text(
-                                              'km',
+                                              'C',
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 10),
@@ -535,12 +569,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                           ),
                                           Row(
                                             children: [
-                                              const Text(
-                                                '107',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 24),
-                                              ),
+                                              Text('$heartRate', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                                               const SizedBox(
                                                 width: 4,
                                               ),

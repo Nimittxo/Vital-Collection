@@ -1,11 +1,11 @@
 {
     "workouts":[
         {
-            "name":"Abdominal Beginners",
-            "level":"beginners",
-            "time": 15,
-            "burnedCalories": 300,
-            "imgUrl":"assets/images/abs1.jpg",
+            "name":"Nearby Vehicles",
+            "level":"Tamil Nadu",
+            "time": 5,
+            "burnedCalories": 39578,
+            "imgUrl":"assets/images/.jpg",
             "exercises":[
                 {
                     "name": "Air Bike",

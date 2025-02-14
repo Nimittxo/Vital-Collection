@@ -44,10 +44,10 @@ class _WorkoutScreenState extends State<PlansScreen> {
 
                   tabs: const [
                     Tab(
-                      text: "WORKOUTS",
+                      text: "Assistance",
                     ),
                     Tab(
-                      text: "Saved",
+                      text: "Previous Records",
                     )
                   ],
                 ),
